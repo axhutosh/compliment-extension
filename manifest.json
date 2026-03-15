@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "You're Amazing ✨",
+  "version": "1.0",
+  "description": "A little compliment, whenever you need one.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Get a Compliment"
+  },
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  }
+}
