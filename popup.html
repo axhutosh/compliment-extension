@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>You're Amazing</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     :root {
       --bg: #0e0c0a;
@@ -13,216 +13,138 @@
       --gold-light: #e8c96a;
       --cream: #f5edd8;
       --muted: #7a6e5f;
-      --glow: rgba(201, 168, 76, 0.18);
+      --accent: #c9a84c;
+      --accent-glow: rgba(201, 168, 76, 0.2);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      width: 320px;
-      min-height: 380px;
+      width: 340px;
+      min-height: 420px;
       background: var(--bg);
       font-family: 'DM Sans', sans-serif;
       color: var(--cream);
       overflow: hidden;
       position: relative;
+      transition: --accent 0.4s;
     }
 
-    /* Ambient background blobs */
     .bg-glow {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(60px);
-      pointer-events: none;
-      z-index: 0;
+      position: absolute; border-radius: 50%;
+      filter: blur(60px); pointer-events: none; z-index: 0;
+      transition: background 0.6s ease;
     }
-    .bg-glow-1 {
-      width: 200px; height: 200px;
-      background: rgba(201, 168, 76, 0.07);
-      top: -60px; left: -40px;
-    }
-    .bg-glow-2 {
-      width: 160px; height: 160px;
-      background: rgba(180, 100, 60, 0.06);
-      bottom: -40px; right: -30px;
-    }
+    .bg-glow-1 { width: 200px; height: 200px; top: -60px; left: -40px; background: var(--accent-glow); }
+    .bg-glow-2 { width: 160px; height: 160px; bottom: -40px; right: -30px; background: rgba(180,100,60,0.06); }
 
     .container {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 28px 24px 24px;
-      min-height: 380px;
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 22px 20px 20px; min-height: 420px;
     }
 
-    /* Header */
-    .header {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
+    .header { text-align: center; margin-bottom: 16px; }
     .header .eyebrow {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 10px;
-      font-weight: 300;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 6px;
-      opacity: 0.85;
+      font-size: 10px; font-weight: 300; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 4px; opacity: 0.85;
     }
-
     .header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 22px;
-      font-weight: 400;
-      color: var(--cream);
-      letter-spacing: 0.01em;
+      font-family: 'Playfair Display', serif; font-size: 20px;
+      font-weight: 400; color: var(--cream);
     }
 
-    /* Compliment card */
+    .mood-label {
+      font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 8px; align-self: flex-start;
+    }
+
+    .mood-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 6px; width: 100%; margin-bottom: 16px;
+    }
+
+    .mood-btn {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 3px; padding: 8px 4px;
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px; cursor: pointer;
+      transition: all 0.2s ease; color: var(--muted);
+      font-size: 10px; font-family: 'DM Sans', sans-serif; letter-spacing: 0.02em;
+    }
+    .mood-btn .mood-emoji { font-size: 18px; line-height: 1; }
+    .mood-btn:hover { border-color: var(--accent); color: var(--cream); transform: translateY(-1px); }
+    .mood-btn.active {
+      border-color: var(--accent);
+      background: rgba(201,168,76,0.1);
+      color: var(--gold-light);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+
     .card {
       background: var(--card);
-      border: 1px solid rgba(201, 168, 76, 0.15);
-      border-radius: 16px;
-      padding: 28px 22px;
-      width: 100%;
-      min-height: 140px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 20px;
-      box-shadow: 0 0 40px var(--glow), inset 0 1px 0 rgba(255,255,255,0.04);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 16px; padding: 24px 20px; width: 100%;
+      min-height: 130px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      position: relative; overflow: hidden; margin-bottom: 14px;
+      box-shadow: 0 0 40px var(--accent-glow), inset 0 1px 0 rgba(255,255,255,0.04);
+      transition: box-shadow 0.4s ease;
     }
-
     .card::before {
-      content: '"';
-      font-family: 'Playfair Display', serif;
-      font-size: 80px;
-      color: var(--gold);
-      opacity: 0.08;
-      position: absolute;
-      top: -10px;
-      left: 14px;
-      line-height: 1;
-      pointer-events: none;
+      content: '"'; font-family: 'Playfair Display', serif; font-size: 80px;
+      color: var(--accent); opacity: 0.07;
+      position: absolute; top: -10px; left: 14px; line-height: 1; pointer-events: none;
     }
 
-    .compliment-emoji {
-      font-size: 28px;
-      margin-bottom: 12px;
-      display: block;
-      animation: floatIn 0.5s ease forwards;
-    }
-
+    .compliment-emoji { font-size: 26px; margin-bottom: 10px; display: block; }
     .compliment-text {
-      font-family: 'Playfair Display', serif;
-      font-size: 15px;
-      font-style: italic;
-      line-height: 1.65;
-      color: var(--cream);
-      opacity: 0;
-      animation: fadeUp 0.5s ease 0.1s forwards;
+      font-family: 'Playfair Display', serif; font-size: 14px;
+      font-style: italic; line-height: 1.65; color: var(--cream);
     }
-
     .compliment-author {
-      margin-top: 14px;
-      font-size: 11px;
-      font-weight: 300;
-      letter-spacing: 0.12em;
-      color: var(--gold);
-      opacity: 0;
-      animation: fadeUp 0.5s ease 0.2s forwards;
+      margin-top: 12px; font-size: 11px; font-weight: 300;
+      letter-spacing: 0.1em; color: var(--accent);
     }
 
-    /* Streak badge */
     .streak {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(201, 168, 76, 0.08);
-      border: 1px solid rgba(201, 168, 76, 0.2);
-      border-radius: 20px;
-      padding: 5px 12px;
-      font-size: 11px;
-      color: var(--gold-light);
-      font-weight: 300;
-      letter-spacing: 0.05em;
-      margin-bottom: 20px;
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 20px; padding: 5px 12px;
+      font-size: 11px; color: var(--gold-light);
+      font-weight: 300; letter-spacing: 0.05em; margin-bottom: 14px;
     }
 
-    .streak-fire { font-size: 13px; }
-
-    /* Button */
-    .btn {
-      width: 100%;
-      padding: 13px;
-      background: linear-gradient(135deg, var(--gold), #a87932);
-      border: none;
-      border-radius: 12px;
-      color: #1a1208;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 13px;
-      font-weight: 400;
-      letter-spacing: 0.08em;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 20px rgba(201, 168, 76, 0.25);
-      text-transform: uppercase;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 28px rgba(201, 168, 76, 0.4);
-      background: linear-gradient(135deg, var(--gold-light), var(--gold));
-    }
-
-    .btn:active {
-      transform: translateY(0);
-    }
-
-    /* Copy button */
-    .btn-copy {
-      width: 100%;
-      padding: 10px;
-      background: transparent;
-      border: 1px solid rgba(201, 168, 76, 0.25);
-      border-radius: 10px;
-      color: var(--muted);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      text-transform: uppercase;
-      margin-top: 8px;
-    }
-    .btn-copy:hover {
-      color: var(--gold);
-      border-color: rgba(201, 168, 76, 0.5);
-    }
-
-    .btn-copy.copied {
-      color: #6dbf8a;
-      border-color: rgba(109, 191, 138, 0.4);
-    }
-
-    /* Divider */
     .divider {
-      width: 40px;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      opacity: 0.4;
-      margin: 4px 0 16px;
+      width: 40px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0.4; margin: 0 0 14px;
     }
 
-    /* Animations */
+    .btn {
+      width: 100%; padding: 12px;
+      background: linear-gradient(135deg, var(--accent), #a87932);
+      border: none; border-radius: 12px; color: #1a1208;
+      font-family: 'DM Sans', sans-serif; font-size: 12px;
+      font-weight: 500; letter-spacing: 0.08em; cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 20px var(--accent-glow); text-transform: uppercase;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 28px var(--accent-glow); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-copy {
+      width: 100%; padding: 9px; background: transparent;
+      border: 1px solid rgba(201,168,76,0.25); border-radius: 10px;
+      color: var(--muted); font-family: 'DM Sans', sans-serif;
+      font-size: 11px; letter-spacing: 0.08em; cursor: pointer;
+      transition: all 0.2s ease; text-transform: uppercase; margin-top: 7px;
+    }
+    .btn-copy:hover { color: var(--accent); border-color: rgba(201,168,76,0.5); }
+    .btn-copy.copied { color: #6dbf8a; border-color: rgba(109,191,138,0.4); }
+
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(8px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -231,28 +153,21 @@
       from { opacity: 0; transform: scale(0.7); }
       to   { opacity: 1; transform: scale(1); }
     }
+    .animating .compliment-emoji { animation: floatIn 0.4s ease forwards; }
+    .animating .compliment-text  { opacity: 0; animation: fadeUp 0.4s ease 0.1s forwards; }
+    .animating .compliment-author{ opacity: 0; animation: fadeUp 0.4s ease 0.2s forwards; }
 
-    .card.refresh .compliment-emoji,
-    .card.refresh .compliment-text,
-    .card.refresh .compliment-author {
-      animation: none;
-      opacity: 1;
-    }
-
-    .card.animating .compliment-emoji {
-      animation: floatIn 0.4s ease forwards;
-    }
-    .card.animating .compliment-text {
-      opacity: 0;
-      animation: fadeUp 0.4s ease 0.1s forwards;
-    }
-    .card.animating .compliment-author {
-      opacity: 0;
-      animation: fadeUp 0.4s ease 0.2s forwards;
-    }
+    /* Mood themes */
+    body.mood-funny        { --accent: #f5a623; --accent-glow: rgba(245,166,35,0.2); }
+    body.mood-motivational { --accent: #e05c5c; --accent-glow: rgba(224,92,92,0.2); }
+    body.mood-flirty       { --accent: #d96fa8; --accent-glow: rgba(217,111,168,0.2); }
+    body.mood-chill        { --accent: #5ca8d9; --accent-glow: rgba(92,168,217,0.2); }
+    body.mood-hype         { --accent: #f07d3a; --accent-glow: rgba(240,125,58,0.2); }
+    body.mood-intellectual { --accent: #8a7fd4; --accent-glow: rgba(138,127,212,0.2); }
+    body.mood-sweet        { --accent: #d47fa6; --accent-glow: rgba(212,127,166,0.2); }
   </style>
 </head>
-<body>
+<body class="mood-funny">
   <div class="bg-glow bg-glow-1"></div>
   <div class="bg-glow bg-glow-2"></div>
 
@@ -262,14 +177,25 @@
       <h1>You're Amazing ✨</h1>
     </div>
 
+    <p class="mood-label">Pick your mood</p>
+    <div class="mood-grid">
+      <button class="mood-btn active" data-mood="funny"><span class="mood-emoji">😂</span>Funny</button>
+      <button class="mood-btn" data-mood="motivational"><span class="mood-emoji">💪</span>Motivate</button>
+      <button class="mood-btn" data-mood="flirty"><span class="mood-emoji">😏</span>Flirty</button>
+      <button class="mood-btn" data-mood="chill"><span class="mood-emoji">🌙</span>Chill</button>
+      <button class="mood-btn" data-mood="hype"><span class="mood-emoji">🔥</span>Hype</button>
+      <button class="mood-btn" data-mood="intellectual"><span class="mood-emoji">🧠</span>Brainy</button>
+      <button class="mood-btn" data-mood="sweet"><span class="mood-emoji">🌸</span>Sweet</button>
+    </div>
+
     <div class="card" id="card">
-      <span class="compliment-emoji" id="emoji">🌟</span>
+      <span class="compliment-emoji" id="emoji">😂</span>
       <p class="compliment-text" id="compliment">Loading your compliment...</p>
       <p class="compliment-author" id="author">— just for you</p>
     </div>
 
-    <div class="streak" id="streak">
-      <span class="streak-fire">🔥</span>
+    <div class="streak">
+      <span>🔥</span>
       <span id="streak-text">Loading streak...</span>
     </div>
 
